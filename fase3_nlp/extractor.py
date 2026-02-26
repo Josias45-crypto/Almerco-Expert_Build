@@ -165,6 +165,27 @@ INTENCIONES = {
     "samsung":  {"cpu": 0.5, "ram": 0.5, "gpu": 0.5, "almacenamiento": 0.8},
     "corsair":  {"cpu": 0.5, "ram": 0.8, "gpu": 0.5, "almacenamiento": 0.5},
     "msi":      {"cpu": 0.6, "ram": 0.6, "gpu": 0.7, "almacenamiento": 0.5},
+    
+     # --------------------------------------------------------
+    # LENGUAJE CASUAL / CONSULTAS CORTAS
+    # --------------------------------------------------------
+    "buena":    {"cpu": 0.7, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.6},
+    "buen":     {"cpu": 0.7, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.6},
+    "bueno":    {"cpu": 0.7, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.6},
+    "hij":      {"cpu": 0.5, "ram": 0.5, "gpu": 0.6, "almacenamiento": 0.5},
+    "hijo":     {"cpu": 0.5, "ram": 0.5, "gpu": 0.6, "almacenamiento": 0.5},
+    "hija":     {"cpu": 0.5, "ram": 0.5, "gpu": 0.6, "almacenamiento": 0.5},
+    "niño":     {"cpu": 0.4, "ram": 0.4, "gpu": 0.5, "almacenamiento": 0.4},
+    "niñ":      {"cpu": 0.4, "ram": 0.4, "gpu": 0.5, "almacenamiento": 0.4},
+    "regalo":   {"cpu": 0.6, "ram": 0.6, "gpu": 0.6, "almacenamiento": 0.5},
+    "regal":    {"cpu": 0.6, "ram": 0.6, "gpu": 0.6, "almacenamiento": 0.5},
+    "trabaj":   {"cpu": 0.6, "ram": 0.6, "gpu": 0.4, "almacenamiento": 0.6},
+    "cas":      {"cpu": 0.5, "ram": 0.5, "gpu": 0.4, "almacenamiento": 0.5},
+    "casa":     {"cpu": 0.5, "ram": 0.5, "gpu": 0.4, "almacenamiento": 0.5},
+    "todo":     {"cpu": 0.7, "ram": 0.7, "gpu": 0.6, "almacenamiento": 0.6},
+    "tod":      {"cpu": 0.7, "ram": 0.7, "gpu": 0.6, "almacenamiento": 0.6},
+    "multitare":{"cpu": 0.8, "ram": 0.8, "gpu": 0.5, "almacenamiento": 0.6},
+    "complet":  {"cpu": 0.7, "ram": 0.7, "gpu": 0.6, "almacenamiento": 0.6},
 }
 # Perfil por defecto si no se detecta ninguna intención
 PRIORIDADES_DEFAULT = {
@@ -240,15 +261,22 @@ class Extractor:
 
     def _determinar_perfil(self, prioridades: dict) -> str:
         """
-        Determina el perfil del cliente según las prioridades extraídas.
+        Determina el perfil usando el componente dominante,
+        no el promedio. Si alguien menciona gaming aunque sea
+        junto a estudio, la GPU alta manda.
         """
         gpu = prioridades.get("gpu", 0)
         cpu = prioridades.get("cpu", 0)
         ram = prioridades.get("ram", 0)
 
-        if gpu >= 0.8:
+        # Si GPU es alta → Gamer (aunque haya otras intenciones)
+        if gpu >= 0.75:
             return "Gamer"
-        elif cpu >= 0.8 and ram >= 0.8:
+        # Si CPU y RAM son altas → Diseñador / Programador
+        elif cpu >= 0.75 and ram >= 0.75:
+            return "Disenador"
+        # Si CPU es alta pero RAM no tanto → también Diseñador
+        elif cpu >= 0.8:
             return "Disenador"
         else:
             return "Oficina"
