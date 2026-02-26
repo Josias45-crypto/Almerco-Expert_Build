@@ -13,6 +13,8 @@ import json
 # ------------------------------------------------------------
 
 CATEGORIAS = [
+    ("RAM", "Memoria RAM"),
+    ("SSD", "Almacenamiento SSD"),
     ("CPU",           "Procesadores"),
     ("Motherboard",   "Tarjetas madre"),
     ("GPU",           "Tarjetas gráficas"),
@@ -26,6 +28,33 @@ SOCKETS = ["LGA1700", "LGA1200", "AM5", "AM4"]
 
 # specs guardadas como JSON
 PRODUCTOS = [
+    # --- RAM ---
+    (
+        "RAM", "Corsair", "Vengeance DDR5 32GB", 120.00, 20,
+        {"capacidad_gb": 32, "velocidad_mhz": 6000, "tipo": "DDR5"}
+    ),
+    (
+        "RAM", "G.Skill", "Trident Z5 64GB", 220.00, 10,
+        {"capacidad_gb": 64, "velocidad_mhz": 6400, "tipo": "DDR5"}
+    ),
+    (
+        "RAM", "Kingston", "Fury Beast 16GB", 55.00, 30,
+        {"capacidad_gb": 16, "velocidad_mhz": 3200, "tipo": "DDR4"}
+    ),
+
+    # --- SSD ---
+    (
+        "SSD", "Samsung", "990 Pro 2TB", 180.00, 15,
+        {"capacidad_gb": 2000, "velocidad_mb": 7450, "tipo": "NVMe"}
+    ),
+    (
+        "SSD", "WD", "Black SN850X 1TB", 110.00, 20,
+        {"capacidad_gb": 1000, "velocidad_mb": 7300, "tipo": "NVMe"}
+    ),
+    (
+        "SSD", "Kingston", "A400 480GB", 45.00, 35,
+        {"capacidad_gb": 480, "velocidad_mb": 500, "tipo": "SATA"}
+    ),
     # --- CPUs ---
     (
         "CPU", "Intel", "Core i9-14900K", 580.00, 10,

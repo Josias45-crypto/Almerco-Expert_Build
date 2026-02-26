@@ -21,45 +21,151 @@ from preprocesador import Preprocesador
 # ------------------------------------------------------------
 
 INTENCIONES = {
-    # Renderizado / Video / 3D
+    # --------------------------------------------------------
+    # RENDERIZADO / VIDEO / 3D
+    # --------------------------------------------------------
     "renderiz": {"cpu": 1.0, "ram": 0.9, "gpu": 0.8, "almacenamiento": 0.7},
     "render":   {"cpu": 1.0, "ram": 0.9, "gpu": 0.8, "almacenamiento": 0.7},
     "vide":     {"cpu": 0.8, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.8},
     "4k":       {"cpu": 0.9, "ram": 0.8, "gpu": 0.9, "almacenamiento": 0.7},
     "8k":       {"cpu": 1.0, "ram": 1.0, "gpu": 1.0, "almacenamiento": 0.9},
     "3d":       {"cpu": 0.9, "ram": 0.9, "gpu": 0.9, "almacenamiento": 0.7},
+    "animacion":{"cpu": 0.9, "ram": 0.9, "gpu": 0.8, "almacenamiento": 0.8},
+    "animac":   {"cpu": 0.9, "ram": 0.9, "gpu": 0.8, "almacenamiento": 0.8},
+    "blender":  {"cpu": 1.0, "ram": 0.9, "gpu": 0.9, "almacenamiento": 0.7},
+    "after":    {"cpu": 0.9, "ram": 0.9, "gpu": 0.8, "almacenamiento": 0.8},
+    "premier":  {"cpu": 0.9, "ram": 0.9, "gpu": 0.8, "almacenamiento": 0.9},
+    "davinci":  {"cpu": 0.9, "ram": 0.9, "gpu": 0.9, "almacenamiento": 0.9},
 
-    # Diseño / Fotografía
+    # --------------------------------------------------------
+    # DISEÑO / FOTOGRAFÍA / CREATIVIDAD
+    # --------------------------------------------------------
     "diseñ":    {"cpu": 0.8, "ram": 0.9, "gpu": 0.7, "almacenamiento": 0.8},
     "grafic":   {"cpu": 0.8, "ram": 0.8, "gpu": 0.9, "almacenamiento": 0.7},
     "fot":      {"cpu": 0.7, "ram": 0.8, "gpu": 0.6, "almacenamiento": 0.9},
     "edicion":  {"cpu": 0.9, "ram": 0.9, "gpu": 0.7, "almacenamiento": 0.8},
     "edic":     {"cpu": 0.9, "ram": 0.9, "gpu": 0.7, "almacenamiento": 0.8},
+    "edit":     {"cpu": 0.9, "ram": 0.9, "gpu": 0.7, "almacenamiento": 0.8},
+    "photoshop":{"cpu": 0.8, "ram": 0.9, "gpu": 0.7, "almacenamiento": 0.8},
+    "illustrat":{"cpu": 0.7, "ram": 0.8, "gpu": 0.6, "almacenamiento": 0.7},
+    "creativ":  {"cpu": 0.8, "ram": 0.8, "gpu": 0.7, "almacenamiento": 0.7},
+    "ilustrac": {"cpu": 0.7, "ram": 0.8, "gpu": 0.7, "almacenamiento": 0.7},
+    "arqu":     {"cpu": 0.9, "ram": 0.9, "gpu": 0.8, "almacenamiento": 0.8},
+    "autocad":  {"cpu": 0.9, "ram": 0.8, "gpu": 0.8, "almacenamiento": 0.7},
 
-    # Gaming
-    "gaming":    {"cpu": 0.8, "ram": 0.7, "gpu": 1.0, "almacenamiento": 0.6},
-    "gamer":     {"cpu": 0.8, "ram": 0.7, "gpu": 1.0, "almacenamiento": 0.6},
-    "jueg":      {"cpu": 0.7, "ram": 0.6, "gpu": 1.0, "almacenamiento": 0.5},
-    "streaming": {"cpu": 0.8, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.6},
+    # --------------------------------------------------------
+    # GAMING / JUEGOS
+    # --------------------------------------------------------
+    "gaming":   {"cpu": 0.8, "ram": 0.7, "gpu": 1.0, "almacenamiento": 0.6},
+    "gamer":    {"cpu": 0.8, "ram": 0.7, "gpu": 1.0, "almacenamiento": 0.6},
+    "jueg":     {"cpu": 0.7, "ram": 0.6, "gpu": 1.0, "almacenamiento": 0.5},
+    "jugar":    {"cpu": 0.7, "ram": 0.6, "gpu": 1.0, "almacenamiento": 0.5},
+    "jug":      {"cpu": 0.7, "ram": 0.6, "gpu": 1.0, "almacenamiento": 0.5},
+    "videojueg":{"cpu": 0.7, "ram": 0.6, "gpu": 1.0, "almacenamiento": 0.6},
+    "fps":      {"cpu": 0.8, "ram": 0.7, "gpu": 1.0, "almacenamiento": 0.5},
+    "esport":   {"cpu": 0.8, "ram": 0.7, "gpu": 1.0, "almacenamiento": 0.5},
+    "fortnit":  {"cpu": 0.7, "ram": 0.6, "gpu": 0.9, "almacenamiento": 0.5},
+    "minecraft":{"cpu": 0.6, "ram": 0.6, "gpu": 0.7, "almacenamiento": 0.5},
+    "roblox":   {"cpu": 0.5, "ram": 0.5, "gpu": 0.6, "almacenamiento": 0.4},
+    "roblo":    {"cpu": 0.5, "ram": 0.5, "gpu": 0.6, "almacenamiento": 0.4},
+    "warzon":   {"cpu": 0.8, "ram": 0.7, "gpu": 1.0, "almacenamiento": 0.6},
+    "valorant": {"cpu": 0.7, "ram": 0.6, "gpu": 0.8, "almacenamiento": 0.5},
+    "valoran":  {"cpu": 0.7, "ram": 0.6, "gpu": 0.8, "almacenamiento": 0.5},
+    "steam":    {"cpu": 0.7, "ram": 0.6, "gpu": 0.9, "almacenamiento": 0.7},
+    "streaming":{"cpu": 0.8, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.6},
 
-    # Oficina / Básico
-    "oficin":    {"cpu": 0.4, "ram": 0.4, "gpu": 0.1, "almacenamiento": 0.5},
-    "ofimati":   {"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.4},
-    "barat":     {"cpu": 0.3, "ram": 0.3, "gpu": 0.2, "almacenamiento": 0.3},
-    "economic":  {"cpu": 0.3, "ram": 0.3, "gpu": 0.2, "almacenamiento": 0.3},
-    "basic":     {"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.4},
+    # --------------------------------------------------------
+    # PROGRAMACIÓN / DESARROLLO
+    # --------------------------------------------------------
+    "program":  {"cpu": 0.8, "ram": 0.8, "gpu": 0.3, "almacenamiento": 0.7},
+    "programar":{"cpu": 0.8, "ram": 0.8, "gpu": 0.3, "almacenamiento": 0.7},
+    "codigo":   {"cpu": 0.7, "ram": 0.7, "gpu": 0.3, "almacenamiento": 0.6},
+    "cod":      {"cpu": 0.7, "ram": 0.7, "gpu": 0.3, "almacenamiento": 0.6},
+    "desarroll":{"cpu": 0.8, "ram": 0.8, "gpu": 0.3, "almacenamiento": 0.7},
+    "develop":  {"cpu": 0.8, "ram": 0.8, "gpu": 0.3, "almacenamiento": 0.7},
+    "softwar":  {"cpu": 0.8, "ram": 0.8, "gpu": 0.3, "almacenamiento": 0.7},
+    "web":      {"cpu": 0.6, "ram": 0.7, "gpu": 0.2, "almacenamiento": 0.6},
+    "python":   {"cpu": 0.7, "ram": 0.7, "gpu": 0.4, "almacenamiento": 0.6},
+    "java":     {"cpu": 0.7, "ram": 0.8, "gpu": 0.2, "almacenamiento": 0.6},
+    "backend":  {"cpu": 0.8, "ram": 0.8, "gpu": 0.2, "almacenamiento": 0.7},
+    "frontend": {"cpu": 0.6, "ram": 0.7, "gpu": 0.3, "almacenamiento": 0.6},
+    "docker":   {"cpu": 0.8, "ram": 0.9, "gpu": 0.2, "almacenamiento": 0.8},
+    "maquina":  {"cpu": 0.8, "ram": 0.9, "gpu": 0.3, "almacenamiento": 0.8},
+    "virtual":  {"cpu": 0.8, "ram": 0.9, "gpu": 0.3, "almacenamiento": 0.8},
 
-    # Programación
-    "program":   {"cpu": 0.8, "ram": 0.8, "gpu": 0.3, "almacenamiento": 0.7},
-    "codigo":    {"cpu": 0.7, "ram": 0.7, "gpu": 0.3, "almacenamiento": 0.6},
-    "desarroll": {"cpu": 0.8, "ram": 0.8, "gpu": 0.3, "almacenamiento": 0.7},
+    # --------------------------------------------------------
+    # INTELIGENCIA ARTIFICIAL / DATA SCIENCE
+    # --------------------------------------------------------
+    "inteligencia": {"cpu": 0.9, "ram": 1.0, "gpu": 1.0, "almacenamiento": 0.8},
+    "intelig":  {"cpu": 0.9, "ram": 1.0, "gpu": 1.0, "almacenamiento": 0.8},
+    "machine":  {"cpu": 0.9, "ram": 1.0, "gpu": 1.0, "almacenamiento": 0.8},
+    "deep":     {"cpu": 0.9, "ram": 1.0, "gpu": 1.0, "almacenamiento": 0.8},
+    "data":     {"cpu": 0.8, "ram": 0.9, "gpu": 0.7, "almacenamiento": 0.9},
+    "ciencia":  {"cpu": 0.8, "ram": 0.9, "gpu": 0.7, "almacenamiento": 0.8},
+    "modelo":   {"cpu": 0.9, "ram": 1.0, "gpu": 1.0, "almacenamiento": 0.8},
+    "entrena":  {"cpu": 0.9, "ram": 1.0, "gpu": 1.0, "almacenamiento": 0.8},
 
-    # Potencia general
-    "potent":    {"cpu": 0.9, "ram": 0.8, "gpu": 0.8, "almacenamiento": 0.6},
-    "rapid":     {"cpu": 0.8, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.8},
-    "alta":      {"cpu": 0.7, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.5},
+    # --------------------------------------------------------
+    # ESTUDIO / UNIVERSIDAD / COLEGIO
+    # --------------------------------------------------------
+    "estudi":   {"cpu": 0.5, "ram": 0.5, "gpu": 0.3, "almacenamiento": 0.5},
+    "univers":  {"cpu": 0.6, "ram": 0.6, "gpu": 0.4, "almacenamiento": 0.6},
+    "universid":{"cpu": 0.6, "ram": 0.6, "gpu": 0.4, "almacenamiento": 0.6},
+    "colegio":  {"cpu": 0.4, "ram": 0.4, "gpu": 0.2, "almacenamiento": 0.4},
+    "coleg":    {"cpu": 0.4, "ram": 0.4, "gpu": 0.2, "almacenamiento": 0.4},
+    "clase":    {"cpu": 0.4, "ram": 0.4, "gpu": 0.2, "almacenamiento": 0.4},
+    "clas":     {"cpu": 0.4, "ram": 0.4, "gpu": 0.2, "almacenamiento": 0.4},
+    "tarea":    {"cpu": 0.4, "ram": 0.4, "gpu": 0.2, "almacenamiento": 0.4},
+    "tar":      {"cpu": 0.4, "ram": 0.4, "gpu": 0.2, "almacenamiento": 0.4},
+    "trabaj":   {"cpu": 0.5, "ram": 0.5, "gpu": 0.3, "almacenamiento": 0.5},
+    "ingenier": {"cpu": 0.7, "ram": 0.7, "gpu": 0.5, "almacenamiento": 0.6},
+    "ingenieri":{"cpu": 0.7, "ram": 0.7, "gpu": 0.5, "almacenamiento": 0.6},
+    "simulac":  {"cpu": 0.9, "ram": 0.9, "gpu": 0.7, "almacenamiento": 0.6},
+    "calculo":  {"cpu": 0.6, "ram": 0.6, "gpu": 0.3, "almacenamiento": 0.5},
+    "calcul":   {"cpu": 0.6, "ram": 0.6, "gpu": 0.3, "almacenamiento": 0.5},
+    "zoom":     {"cpu": 0.4, "ram": 0.4, "gpu": 0.2, "almacenamiento": 0.3},
+    "meet":     {"cpu": 0.4, "ram": 0.4, "gpu": 0.2, "almacenamiento": 0.3},
+
+    # --------------------------------------------------------
+    # OFICINA / USO BÁSICO
+    # --------------------------------------------------------
+    "oficin":   {"cpu": 0.4, "ram": 0.4, "gpu": 0.1, "almacenamiento": 0.5},
+    "ofimati":  {"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.4},
+    "word":     {"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.4},
+    "excel":    {"cpu": 0.4, "ram": 0.4, "gpu": 0.1, "almacenamiento": 0.4},
+    "powerpoint":{"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.4},
+    "naveg":    {"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.3},
+    "correo":   {"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.3},
+    "document": {"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.4},
+
+    # --------------------------------------------------------
+    # PRESUPUESTO
+    # --------------------------------------------------------
+    "barat":    {"cpu": 0.3, "ram": 0.3, "gpu": 0.2, "almacenamiento": 0.3},
+    "economic": {"cpu": 0.3, "ram": 0.3, "gpu": 0.2, "almacenamiento": 0.3},
+    "baj":      {"cpu": 0.3, "ram": 0.3, "gpu": 0.2, "almacenamiento": 0.3},
+    "bajo":     {"cpu": 0.3, "ram": 0.3, "gpu": 0.2, "almacenamiento": 0.3},
+    "basic":    {"cpu": 0.3, "ram": 0.3, "gpu": 0.1, "almacenamiento": 0.4},
+    "potent":   {"cpu": 0.9, "ram": 0.8, "gpu": 0.8, "almacenamiento": 0.6},
+    "rapid":    {"cpu": 0.8, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.8},
+    "alta":     {"cpu": 0.7, "ram": 0.7, "gpu": 0.7, "almacenamiento": 0.5},
+    "mejor":    {"cpu": 0.9, "ram": 0.8, "gpu": 0.9, "almacenamiento": 0.7},
+    "top":      {"cpu": 0.9, "ram": 0.8, "gpu": 0.9, "almacenamiento": 0.7},
+    "profes":   {"cpu": 0.9, "ram": 0.9, "gpu": 0.8, "almacenamiento": 0.8},
+
+    # --------------------------------------------------------
+    # MARCAS
+    # --------------------------------------------------------
+    "asus":     {"cpu": 0.6, "ram": 0.6, "gpu": 0.6, "almacenamiento": 0.5},
+    "intel":    {"cpu": 0.7, "ram": 0.5, "gpu": 0.4, "almacenamiento": 0.5},
+    "amd":      {"cpu": 0.7, "ram": 0.5, "gpu": 0.6, "almacenamiento": 0.5},
+    "nvidia":   {"cpu": 0.6, "ram": 0.5, "gpu": 0.9, "almacenamiento": 0.5},
+    "ryzen":    {"cpu": 0.8, "ram": 0.6, "gpu": 0.5, "almacenamiento": 0.5},
+    "core":     {"cpu": 0.8, "ram": 0.6, "gpu": 0.5, "almacenamiento": 0.5},
+    "samsung":  {"cpu": 0.5, "ram": 0.5, "gpu": 0.5, "almacenamiento": 0.8},
+    "corsair":  {"cpu": 0.5, "ram": 0.8, "gpu": 0.5, "almacenamiento": 0.5},
+    "msi":      {"cpu": 0.6, "ram": 0.6, "gpu": 0.7, "almacenamiento": 0.5},
 }
-
 # Perfil por defecto si no se detecta ninguna intención
 PRIORIDADES_DEFAULT = {
     "cpu": 0.5, "ram": 0.5, "gpu": 0.3, "almacenamiento": 0.5
