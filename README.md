@@ -1,4 +1,4 @@
-🖥️ Almerco Expert-Build
+# 🖥️ Almerco Expert-Build
 
 > **Asistente de Ventas Inteligente y Validador de Compatibilidad**  
 > Proyecto desarrollado para **Grupo Almerco** — Departamento de Desarrollo de Software / E-commerce
@@ -27,35 +27,42 @@ El sistema se compone de cuatro fases progresivas, cada una construida sobre la 
 ```
 almerco-expert-build/
 │
-├── README.md                          # Este archivo
-├── .gitignore                         # Archivos ignorados por Git
-├── requirements.txt                   # Dependencias Python
+├── README.md
+├── .gitignore
+├── requirements.txt
 │
-├── database/                          # Capa de datos
-│   ├── connection.py                  # Manejador de conexión SQLite
-│   ├── schema.sql                     # Definición de tablas
-│   ├── seed_mock.py                   # Datos de prueba del catálogo
-│   └── almerco.db                     # Base de datos SQLite (generada)
+├── database/
+│   ├── connection.py           # Manejador de conexión SQLite
+│   ├── schema.sql              # Definición de tablas
+│   ├── seed_mock.py            # Datos de prueba del catálogo
+│   └── almerco.db              # Base de datos SQLite (generada localmente)
 │
-├── fase1_compatibilidad/              # Motor de Compatibilidad Matricial
-│   ├── __init__.py
-│   ├── matrix_builder.py              # Construcción de matrices NumPy
-│   ├── checker.py                     # Entregable: validador de builds
+├── fase1_compatibilidad/
+│   ├── matrix_builder.py       # Construcción de matrices NumPy
+│   ├── checker.py              # Entregable: validador de builds
 │   └── models/
-│       ├── __init__.py
-│       └── hardware.py                # Clases de hardware (CPU, GPU, etc.)
+│       └── hardware.py         # Clases de hardware (CPU, GPU, etc.)
 │
-├── fase2_segmentacion/                # Segmentación de Clientes (K-Means)
-│   └── __init__.py
+├── fase2_segmentacion/
+│   ├── data_builder.py         # Generador de datos de clientes
+│   ├── perfiles.py             # Definición de perfiles
+│   ├── segmentador.py          # Modelo K-Means
+│   └── informe.py              # Entregable: reporte con gráficos
 │
-├── fase3_nlp/                         # Procesamiento de Lenguaje Natural
-│   └── __init__.py
+├── fase3_nlp/
+│   ├── preprocesador.py        # Limpieza y tokenización
+│   ├── extractor.py            # Extracción de entidades técnicas
+│   ├── buscador.py             # Filtrado de catálogo con SciPy
+│   └── motor_busqueda.py       # Entregable: búsqueda semántica
 │
-├── fase4_recomendador/                # Recomendador Deep Learning
-│   └── __init__.py
+├── fase4_recomendador/
+│   ├── reglas_obligatorias.py  # Reglas fijas de recomendación
+│   ├── dataset.py              # Pares de entrenamiento PyTorch
+│   ├── modelo.py               # Red neuronal feedforward
+│   └── recomendador.py         # Entregable: sistema NBO completo
 │
 └── tests/
-    └── test_fase1.py                  # Tests unitarios Fase 1
+    └── test_fase1.py           # Tests unitarios Fase 1
 ```
 
 ---
@@ -77,52 +84,60 @@ Valida que las piezas seleccionadas por el cliente sean físicamente y eléctric
 
 ---
 
-### 🔜 Fase 2 — Segmentación de Clientes por Perfil
-**Estado: Pendiente**
+### ✅ Fase 2 — Segmentación de Clientes por Perfil
+**Estado: Completada**
 
-Clasifica automáticamente a los clientes en perfiles según su comportamiento de navegación y compras anteriores usando algoritmos de clustering no supervisado.
+Clasifica automáticamente a los clientes en perfiles según su comportamiento de navegación usando K-Means clustering.
 
-**Herramientas:** `Scikit-learn` (K-Means)
+**Herramientas:** `Scikit-learn` (K-Means), `Pandas`, `Matplotlib`
 
-**Perfiles a detectar:** Gamer, Diseñador Gráfico, Usuario de Oficina
+**Resultados:**
+- Silhouette Score: **0.4472**
+- 120 clientes Gamer — presupuesto avg $770
+- 80 clientes Diseñador — presupuesto avg $1,411
+- 150 clientes Oficina — presupuesto avg $351
 
-**Entregable:** Informe de perfiles de cliente de Grupo Almerco
+**Entregable:** `fase2_segmentacion/informe.py`
 
 ---
 
-### 🔜 Fase 3 — Procesamiento de Lenguaje Natural
-**Estado: Pendiente**
+### ✅ Fase 3 — Procesamiento de Lenguaje Natural
+**Estado: Completada**
 
-Motor de búsqueda semántica que interpreta consultas en lenguaje natural como *"Busco una PC potente para renderizar video 4K"* y las traduce en filtros técnicos sobre el catálogo.
+Motor de búsqueda semántica que interpreta consultas en lenguaje natural y las traduce en filtros técnicos sobre el catálogo.
 
 **Herramientas:** `NLTK`, `SciPy`
 
-**Ejemplo:** "renderizar" → prioridad en CPU y RAM → filtra catálogo automáticamente
+**Ejemplos:**
+- "quiero jugar valorant y fortnite" → Gamer → GPU alta prioridad
+- "pc para diseño gráfico en photoshop" → Diseñador → CPU + RAM alta prioridad
+- "computadora barata para la oficina" → Oficina → componentes económicos
 
-**Entregable:** Módulo de búsqueda semántica
+**Entregable:** `fase3_nlp/motor_busqueda.py`
 
 ---
 
-### 🔜 Fase 4 — Recomendador "Next Best Offer"
-**Estado: Pendiente**
+### ✅ Fase 4 — Recomendador "Next Best Offer"
+**Estado: Completada**
 
-Sistema de recomendación basado en Deep Learning que sugiere componentes complementarios obligatorios y opcionales según la selección del cliente.
+Sistema de recomendación que combina reglas obligatorias determinísticas con una red neuronal PyTorch para sugerir componentes complementarios.
 
-**Herramientas:** `PyTorch` / `Keras`
+**Herramientas:** `PyTorch`
 
-**Ejemplo:** Si el cliente elige un i9-14900K → el sistema recomienda obligatoriamente refrigeración líquida 360mm y fuente de más de 850W.
+**Resultados:**
+- i9-14900K → obliga refrigeración líquida 360mm + fuente 850W ✅
+- RTX 4090 → obliga fuente 850W + gabinete 380mm+ ✅
+- Ryzen 5 7600X → sin obligatorios, sugerencias por modelo ✅
 
-**Entregable:** Motor de recomendación NBO
+**Entregable:** `fase4_recomendador/recomendador.py`
 
 ---
 
 ## 🗄️ Modelo de Base de Datos
 
-La base de datos SQLite contiene las siguientes tablas:
-
 | Tabla | Descripción |
 |---|---|
-| `categorias` | CPU, Motherboard, GPU, RAM, Gabinete, Fuente, Refrigeración |
+| `categorias` | CPU, Motherboard, GPU, RAM, Gabinete, Fuente, Refrigeración, SSD |
 | `productos` | Catálogo completo con specs en formato JSON |
 | `sockets` | Tipos de socket: LGA1700, AM5, AM4, LGA1200 |
 | `compatibilidad_cpu_motherboard` | Matriz de compatibilidad CPU ↔ Motherboard |
@@ -142,16 +157,17 @@ La base de datos SQLite contiene las siguientes tablas:
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/practicas-josias/Almerco-Expert-Build.git
-cd almerco-expert-build
+git clone https://github.com/Josias45-crypto/Almerco-Expert_Build.git
+cd Almerco-Expert_Build
 
 # 2. Crear y activar el entorno virtual
-python -m venv venv
-source venv/Scripts/activate   # Windows
-source venv/bin/activate        # Mac/Linux
+python3 -m venv venv
+source venv/bin/activate        # Linux/Mac
+venv\Scripts\Activate.ps1       # Windows PowerShell
 
 # 3. Instalar dependencias
-pip install -r requirements.txt
+pip install numpy pandas scikit-learn scipy nltk matplotlib pytest
+pip install torch --index-url https://download.pytorch.org/whl/cpu
 
 # 4. Inicializar la base de datos
 python database/connection.py
@@ -164,26 +180,25 @@ cd ..
 
 ---
 
-## ▶️ Uso
+## ▶️ Uso por Fase
 
-### Validar compatibilidad de un build
+### Fase 1 — Validar compatibilidad de un build
+
+```bash
+python fase1_compatibilidad/checker.py
+```
 
 ```python
 from fase1_compatibilidad.checker import CompatibilityChecker
 
 checker = CompatibilityChecker()
-
 resultado = checker.validar(
-    cpu_id         = 1,    # Intel Core i9-14900K
-    motherboard_id = 7,    # ASUS ROG Strix Z790-E
-    gpu_id         = 13,   # NVIDIA RTX 4090
-    gabinete_id    = 18,   # Lian Li PC-O11 Dynamic EVO
+    cpu_id=1, motherboard_id=7, gpu_id=13, gabinete_id=18
 )
-
 resultado.imprimir()
 ```
 
-**Salida esperada:**
+**Salida:**
 ```
 =======================================================
        RESULTADO DE COMPATIBILIDAD - ALMERCO
@@ -198,11 +213,64 @@ resultado.imprimir()
 =======================================================
 ```
 
-### Correr los tests
+### Fase 2 — Generar informe de segmentación
 
 ```bash
-pytest tests/test_fase1.py -v
+python fase2_segmentacion/informe.py
 ```
+
+### Fase 3 — Motor de búsqueda semántica interactivo
+
+```bash
+python fase3_nlp/motor_busqueda.py --interactivo
+```
+
+```
+🔍 ¿Qué PC estás buscando? → quiero jugar valorant y hacer diseño gráfico
+```
+
+### Fase 4 — Recomendador Next Best Offer
+
+```bash
+python fase4_recomendador/recomendador.py
+```
+
+**Salida:**
+```
+============================================================
+  🖥️  Seleccionaste: Intel Core i9-14900K
+  💰 Precio: $580.00
+============================================================
+  🔴 RECOMENDACIONES OBLIGATORIAS:
+  ⚠️  CPU de alto rendimiento: refrigeración líquida 360mm obligatoria.
+  ⚠️  CPU de alto rendimiento: fuente de poder 850W o más requerida.
+
+  📦 Refrigeracion:
+     → Corsair iCUE H150i Elite 360mm — $169.00
+  📦 Fuente:
+     → Corsair RM1000x — $189.00
+     → EVGA SuperNOVA 850 G6 — $139.00
+
+  🟡 TAMBIÉN TE PODRÍA INTERESAR:
+     → [GPU] NVIDIA RTX 4090 — $1599.00
+     → [Motherboard] ASUS ROG Strix Z790-E — $420.00
+============================================================
+```
+
+---
+
+## 📊 Resultados y Métricas
+
+| Módulo | Métrica | Resultado |
+|---|---|---|
+| Fase 1 — Checker | Tiempo de consulta | O(1) con matrices NumPy |
+| Fase 1 — Checker | Casos de prueba | 5/5 ✅ |
+| Fase 2 — K-Means | Silhouette Score | 0.4472 |
+| Fase 2 — K-Means | Clientes segmentados | 350 |
+| Fase 3 — NLP | Intenciones en diccionario | 80+ términos |
+| Fase 3 — NLP | Perfiles detectados | Gamer, Diseñador, Oficina |
+| Fase 4 — NBO | Reglas obligatorias | 4 reglas activas |
+| Fase 4 — NBO | Arquitectura red neuronal | 3 capas Dense + Dropout |
 
 ---
 
@@ -212,27 +280,21 @@ pytest tests/test_fase1.py -v
 |---|---|
 | Python 3.10+ | Lenguaje principal |
 | NumPy | Matrices binarias de compatibilidad |
-| Scikit-learn | Clustering K-Means (Fase 2) |
-| NLTK + SciPy | Procesamiento de lenguaje natural (Fase 3) |
-| PyTorch / Keras | Modelo de recomendación Deep Learning (Fase 4) |
+| Scikit-learn | Clustering K-Means |
+| NLTK + SciPy | Procesamiento de lenguaje natural |
+| PyTorch | Modelo de recomendación Deep Learning |
+| Pandas | Manejo y análisis de datos |
+| Matplotlib | Visualización de clusters |
 | SQLite | Base de datos local de desarrollo |
 | Pytest | Testing unitario |
 | Git + GitHub | Control de versiones |
 
 ---
 
-## 📦 Dependencias
+## 🧪 Correr Tests
 
-```
-numpy==1.26.4
-pandas==2.2.2
-scikit-learn==1.4.2
-nltk==3.8.1
-scipy==1.13.0
-torch==2.3.0
-SQLAlchemy==2.0.30
-pytest==8.2.0
-python-dotenv==1.0.1
+```bash
+pytest tests/test_fase1.py -v
 ```
 
 ---
@@ -241,15 +303,17 @@ python-dotenv==1.0.1
 
 | Rama | Descripción |
 |---|---|
-| `main` | Código estable y aprobado |
-| `dev` | Rama principal de desarrollo activo |
+| `dev` | Rama principal — código completo y estable |
+| `fase2` | Desarrollo Fase 2 — Segmentación K-Means |
+| `fase3-nlp` | Desarrollo Fase 3 — NLP y búsqueda semántica |
 
 ---
 
 ## 👨‍💻 Desarrollado por
 
 **Josias** — Grupo Almerco  
-Departamento de Desarrollo de Software / E-commerce
+Departamento de Desarrollo de Software / E-commerce  
+GitHub: [@Josias45-crypto](https://github.com/Josias45-crypto)
 
 ---
 
