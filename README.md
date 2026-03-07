@@ -320,3 +320,42 @@ GitHub: [@Josias45-crypto](https://github.com/Josias45-crypto)
 ## 📄 Licencia
 
 Proyecto privado — Grupo Almerco. Todos los derechos reservados.
+
+---
+
+## 📝 Resumen de ejecución local y errores detectados
+
+Breve registro de las acciones que realicé para poder ejecutar todo el proyecto en mi entorno, por qué falló en tu máquina inicialmente, y cómo solucionarlo.
+
+- Acciones realizadas localmente:
+   - Creé/activé un entorno virtual (`.venv`) en la raíz del proyecto.
+   - Instalé dependencias necesarias de forma incremental: `numpy`, `pandas`, `matplotlib`, `scikit-learn`, `scipy`, `nltk` y `torch` (cuando fue necesario).
+   - Forcé la salida UTF‑8 al ejecutar scripts para evitar errores de codificación con emojis (`PYTHONUTF8=1` o `python -X utf8`).
+   - Ejecuté los entregables en orden: `fase1_compatibilidad/checker.py`, `fase2_segmentacion/informe.py`, `fase3_nlp/motor_busqueda.py --interactivo`.
+
+- Errores encontrados (y causas/soluciones):
+   1. `bash: sed: command not found` — Mensaje del shell MSYS/Git Bash, no de Python. Solución: instalar utilidades coreutils en MSYS2 o usar PowerShell/CMD.
+   2. `ModuleNotFoundError: No module named 'numpy'` — Dependencia faltante; se resolvió instalando `numpy` en el entorno virtual.
+   3. `UnicodeEncodeError` al imprimir emojis — Causa: codificación de la consola en Windows (cp1252). Solución: ejecutar con `PYTHONUTF8=1` o `python -X utf8` o reconfigurar la consola a UTF‑8.
+   4. `ModuleNotFoundError: No module named 'pandas'` / `No module named 'sklearn'` / `No module named 'nltk'` — Dependencias faltantes; instalarlas vía `pip` en el venv.
+   5. `nltk` downloader warnings (Zip Slip blocked) — Mensaje del downloader al intentar escribir recursos; normalmente no impide la ejecución si los recursos ya están instalados. Si hay errores, ejecutar `python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"` con conexión a Internet.
+
+- Recomendaciones para ejecutar en Git Bash (Windows):
+   ```bash
+   # activar venv (Git Bash)
+   source .venv/Scripts/activate
+
+   # instalar deps si faltan
+   pip install -r requirements.txt
+
+   # ejecutar cada fase (forzar UTF-8 para evitar errores con emojis)
+   PYTHONUTF8=1 python fase1_compatibilidad/checker.py
+   PYTHONUTF8=1 python fase2_segmentacion/informe.py
+   PYTHONUTF8=1 python fase3_nlp/motor_busqueda.py --interactivo
+   ```
+
+- Notas importantes:
+   - `nltk` necesita bajar recursos la primera vez (requiere conexión a Internet).
+   - Si quieres evitar la advertencia de `sed` en Git Bash, instala MSYS2/coreutils o usa PowerShell.
+
+**Nota de ejecución (solicitud del autor): 13**
